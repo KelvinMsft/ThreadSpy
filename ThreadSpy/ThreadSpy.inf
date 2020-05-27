@@ -1,0 +1,57 @@
+;
+; PerfMon.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Sample ; TODO: edit Class
+ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=PerfMon.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+; ================= Class section =====================
+
+[ClassInstall32]
+Addreg=SampleClassReg
+
+[SampleClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+PerfMon.sys  = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%PerfMon.DeviceDesc%=PerfMon_Device, Root\PerfMon ; TODO: edit hw-id
+
+[PerfMon_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+PerfMon.sys
+
+;--- PerfMon_Device Coinstaller installation ------
+;
+
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+ClassName="Samples" ; TODO: edit ClassName
+DiskName = "PerfMon Installation Disk"
+PerfMon.DeviceDesc = "PerfMon Device"
+PerfMon.SVCDESC = "PerfMon Service"
